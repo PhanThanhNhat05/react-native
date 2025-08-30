@@ -1,6 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
 
 export default function App() {
           // data type
@@ -19,6 +19,8 @@ export default function App() {
     {id: 8, title: "Learn express.js"},
     {id: 9, title: "Learn express.js"},
     {id: 10, title: "Learn express.js"},
+    {id: 11, title: "Learn express.js"},
+    
   ]);
   return (
     <View style={styles.container}>
@@ -37,13 +39,14 @@ export default function App() {
 
       </View> 
       <Button title='add new' color='violet' onPress={() => alert("click me")}/>
-        <View style={{marginTop: 20, borderColor: 'blue', borderWidth: 2}}>
+
+        <ScrollView style={{marginTop: 20, borderColor: 'blue', borderWidth: 2}}>
           {todoList.map(todo => {
             return (
               <Text key={todo.id} style={styles.todo}>{todo.title}</Text>
             )
           })}
-        </View>
+        </ScrollView>
 
       {/* <StatusBar style="auto" /> */}
     </View>
