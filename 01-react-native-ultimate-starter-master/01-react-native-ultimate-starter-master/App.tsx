@@ -6,69 +6,58 @@ export default function App() {
           // data type
   //string
   const[name, setName] = useState<string>("Nat");
-  //number
-  const[age, setAge] = useState<number>(18);
-  // null, underfined, boolean
+ 
 
-  const test = undefined;
-  //object, array
-
-  const [person, setPerson] = useState<{
-    name: string;
-    age: number;
-  }>({
-    name: "Phan Thanh Nhat",
-    age: 20
-  });
-
-  //array
-  const [numbers, setNumbers] = useState([{
-    name: "Number 1",
-    age1: 25
-  }]);
-
+  const [todoList, setTodoList] = useState([
+    {id: 1, title: "Learn React"},
+    {id: 2, title: "Learn React.js"},
+    {id: 3, title: "Learn Node.js"},
+    {id: 4, title: "Learn java spring-boot"},
+    {id: 5, title: "Learn asp.net"},
+    {id: 6, title: "Learn nest.js"},
+    {id: 7, title: "Learn express.js"},
+    {id: 8, title: "Learn express.js"},
+    {id: 9, title: "Learn express.js"},
+    {id: 10, title: "Learn express.js"},
+  ]);
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.text1}>{name} : {age}</Text>
-        <Text style={styles.text1}>{person.name} : {person.age}</Text>
-        {/* // convert object sang string */}
-        <Text style={styles.text1}>{JSON.stringify(numbers)}</Text>
-
-        <TextInput 
+        <TextInput
         value={name}
         onChangeText={v => setName(v)}
         autoCapitalize='none' 
+        //chinh sua lai cac ki tu go sai
         autoCorrect={false}
-        // keyboardType='numeric'
-        // //ki tu toi da
-        // maxLength={2}
-         
-        //tu donn xuong dong
-        // multiline={true}
-        // //chinh sua lai cac ki tu go sai
-        
+           
         style={{borderColor: "red",
           borderWidth: 1,
           padding: 10
         }} />
 
       </View> 
-      <Button title='add new'/>
-      
+      <Button title='add new' color='violet' onPress={() => alert("click me")}/>
+        <View style={{marginTop: 20, borderColor: 'blue', borderWidth: 2}}>
+          {todoList.map(todo => {
+            return (
+              <Text key={todo.id} style={styles.todo}>{todo.title}</Text>
+            )
+          })}
+        </View>
+
       {/* <StatusBar style="auto" /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  text1 : {
-    color: 'red',
-    fontSize: 30,
-  },
-  text2: {
-    color: 'blue',
+  todo: {
+    color: 'yellow',
     fontWeight: 'bold',
+    backgroundColor: 'pink',
+    fontSize: 30,
+    marginBottom: 20,
+    padding: 10
   },
   container: {
     flex: 1,
@@ -77,6 +66,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     paddingTop: 20,
     paddingHorizontal: 20,
+    marginTop: 50
 
   },
 });
