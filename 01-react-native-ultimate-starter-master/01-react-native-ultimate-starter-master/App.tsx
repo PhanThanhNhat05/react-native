@@ -1,53 +1,60 @@
 // import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
-import InputTodo from './components/todo/input.todo';
-import ListTodo from './components/todo/list.todo';
-import FlexBox from './components/todo/flexbox';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function App() {
 
-  const [todoList, setTodoList] = useState<ITodo[]>([ 
-  ]);
-  
-  function randomInteger(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-  const addTodo = (text: string) => {
-    alert(text);
-    const todo = {id: randomInteger(1, 1000), title: text }
-    setTodoList([...todoList, todo]);
-  }
-  
-  const deleTodo = (id: number) => {
-     const newTodo = todoList.filter(todo => todo.id != id);
-     setTodoList(newTodo)
-  }
-  return (
+  const Stack = createNativeStackNavigator();
 
-    <FlexBox />
-    // <TouchableWithoutFeedback onPress={() => console.log("Press me")}>
-    // <View style={styles.container}>
-    //   <InputTodo
-    //   addTodo={addTodo}
-    //   />
-    //   <ListTodo 
-    //   todoList={todoList}
-    //   deleTodo={deleTodo}
-    //   />
-    // </View>
-    // </TouchableWithoutFeedback>
+  function HomeScreen(props: any) {
+    console.log("props", props);
+    const navigation = props.navigation;
+    // const navigation:any = useNavigation(); (Hooks)cách này nó di động hơn cách khai báo props
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <View style={{marginVertical: 20}}>
+        <Button 
+      title='Go to detail' 
+      onPress={() => navigation.navigate('Details')}
+      />
+      </View>
+      <View style={{marginVertical: 20}}>
+        <Button 
+      title='Go to user id 1' 
+      onPress={() => navigation.navigate('Details')}
+      />
+      </View>
+      <View style={{marginVertical: 20}}>
+        <Button 
+      title='Go to user id 2' 
+      onPress={() => navigation.navigate('Details')}
+      />
+      </View>
+    </View>
+  );
+}
+  function DetailsScreen(props: any) {
+    const navigation = props.navigation;
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+      <Button title='Go back Home' onPress={() => navigation.goBack("Home")} />
+    </View>
+  );
+}
+  return (
+    <NavigationContainer> 
+<Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    paddingTop: 20,
-    paddingHorizontal: 20,
-    marginTop: 50
-  },
-});
+
