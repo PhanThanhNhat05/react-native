@@ -4,12 +4,16 @@ import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList, Toucha
 import { NavigationContainer, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-
+import 'react-native-gesture-handler';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function App() {
 
   const Stack = createNativeStackNavigator();
-
+  const Drawer = createDrawerNavigator();
+  const Tab = createBottomTabNavigator();
   function HomeScreen() {
     // console.log("props", props);
     // console.log("props route", props.route);
@@ -55,9 +59,10 @@ export default function App() {
 }
 
   return (
-    <NavigationContainer> 
-<Stack.Navigator initialRouteName='Home'
- screenOptions={{
+    <NavigationContainer > 
+
+    {/* <Stack.Navigator initialRouteName='Home'
+    screenOptions={{
         headerStyle: {
           backgroundColor: '#f4511e',
         },
@@ -75,7 +80,39 @@ export default function App() {
       
         })}
          component={DetailsScreen} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
+
+      {/* <Drawer.Navigator initialRouteName='Feed'>
+        <Drawer.Screen
+        options={{headerTitle: "Trang chu",
+          drawerLabel: "Trang chu trong",
+        }}
+        name='Feed' component={HomeScreen} />
+        <Drawer.Screen name='Artical' component={DetailsScreen} />
+      </Drawer.Navigator> */}
+
+    <Tab.Navigator 
+     screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'american-football'
+                : 'american-football-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'aperture' : 'aperture-outline';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName as any} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Settings" component={DetailsScreen} />
+    </Tab.Navigator>
     </NavigationContainer>
   );
 }
