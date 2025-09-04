@@ -56,9 +56,25 @@ export default function App() {
 
   return (
     <NavigationContainer> 
-<Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="nat" component={DetailsScreen} />
+<Stack.Navigator initialRouteName='Home'
+ screenOptions={{
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+>
+        <Stack.Screen name="Home" 
+        options={{headerTitle: 'Phan Thanh Nhat'}}
+        component={HomeScreen} />
+        <Stack.Screen name="nat"
+       options={({route} : {route: any}) => ({headerTitle: `Detail Info ${route?.params?.userId ?? ""}`,
+      
+        })}
+         component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
