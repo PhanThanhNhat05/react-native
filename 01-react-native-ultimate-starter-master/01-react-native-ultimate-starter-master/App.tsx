@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 import InputTodo from './components/todo/input.todo';
 import ListTodo from './components/todo/list.todo';
+import FlexBox from './components/todo/flexbox';
 
 export default function App() {
 
@@ -23,17 +24,19 @@ export default function App() {
      setTodoList(newTodo)
   }
   return (
-    <TouchableWithoutFeedback onPress={() => console.log("Press me")}>
-    <View style={styles.container}>
-      <InputTodo
-      addTodo={addTodo}
-      />
-      <ListTodo 
-      todoList={todoList}
-      deleTodo={deleTodo}
-      />
-    </View>
-    </TouchableWithoutFeedback>
+
+    <FlexBox />
+    // <TouchableWithoutFeedback onPress={() => console.log("Press me")}>
+    // <View style={styles.container}>
+    //   <InputTodo
+    //   addTodo={addTodo}
+    //   />
+    //   <ListTodo 
+    //   todoList={todoList}
+    //   deleTodo={deleTodo}
+    //   />
+    // </View>
+    // </TouchableWithoutFeedback>
   );
 }
 
